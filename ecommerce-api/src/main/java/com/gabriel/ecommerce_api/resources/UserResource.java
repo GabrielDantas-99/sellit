@@ -1,14 +1,15 @@
 package com.gabriel.ecommerce_api.resources;
 
 import com.gabriel.ecommerce_api.entities.User;
-import com.gabriel.ecommerce_api.repositories.UserRepository;
 import com.gabriel.ecommerce_api.services.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping(value = "/users")
@@ -25,5 +26,11 @@ public class UserResource {
         List<User> list = service.findAll();
         return ResponseEntity.ok().body(list);
     }
+
+    @GetMapping(value = "/{id}")
+	public ResponseEntity<User> findById(@PathVariable UUID id) {
+		User obj = service.findById(id);
+		return ResponseEntity.ok().body(obj);
+	}
 
 }
