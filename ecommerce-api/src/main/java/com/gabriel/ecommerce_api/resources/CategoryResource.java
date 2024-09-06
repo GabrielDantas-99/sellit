@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping(value = "/categories")
@@ -28,9 +27,9 @@ public class CategoryResource {
     }
 
     @GetMapping(value = "/{id}")
-	public ResponseEntity<Category> findById(@PathVariable UUID id) {
-		Category obj = service.findById(id);
-		return ResponseEntity.ok().body(obj);
-	}
+    public ResponseEntity<Category> findById(@PathVariable Long id) {
+        Category obj = service.findById(id);
+        return ResponseEntity.ok().body(obj);
+    }
 
 }
