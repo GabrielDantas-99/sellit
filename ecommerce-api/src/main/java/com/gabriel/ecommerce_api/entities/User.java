@@ -8,10 +8,14 @@ import lombok.Setter;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
-@Table(name="tb_users")
+@Table(name="tb_user")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -24,9 +28,14 @@ public class User implements Serializable {
     @Id
     @GeneratedValue
     private UUID id;
+    
     private String name;
     private String email;
     private String phone;
     private String password;
+
+    @JsonIgnore
+	@OneToMany(mappedBy = "client")
+	private final List<Order> orders = new ArrayList<>();
 
 }
