@@ -2,8 +2,11 @@ package com.gabriel.ecommerce_api.services;
 
 import com.gabriel.ecommerce_api.entities.User;
 import com.gabriel.ecommerce_api.repositories.UserRepository;
+import com.gabriel.ecommerce_api.services.exceptions.DatabaseException;
 import com.gabriel.ecommerce_api.services.exceptions.ResourceNotFoundException;
 
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -45,7 +48,13 @@ public class UserService {
 	}
 
     public void delete(UUID id) {
-        repository.deleteById(id);
-    }
+		try {
+			repository.deleteById(id);
+		} catch (EmptyResultDataAccessException e) {
+			throw new ResourceNotFoundException(id);
+		} catch (DataIntegrityViolationException e) {
+			throw new DatabaseException(e.getMessage());
+		}
+	}
 
 }
