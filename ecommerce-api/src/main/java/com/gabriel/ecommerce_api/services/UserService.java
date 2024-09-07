@@ -2,8 +2,7 @@ package com.gabriel.ecommerce_api.services;
 
 import com.gabriel.ecommerce_api.entities.User;
 import com.gabriel.ecommerce_api.repositories.UserRepository;
-
-import jakarta.persistence.EntityNotFoundException;
+import com.gabriel.ecommerce_api.services.exceptions.ResourceNotFoundException;
 
 import org.springframework.stereotype.Service;
 
@@ -26,7 +25,7 @@ public class UserService {
 
     public User findById(UUID id) {
 		Optional<User> obj = repository.findById(id);
-		return obj.get();
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 
     public User create(User obj) {
