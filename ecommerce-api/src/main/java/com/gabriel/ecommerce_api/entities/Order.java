@@ -6,7 +6,6 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.gabriel.ecommerce_api.entities.enums.OrderStatus;
 
 import jakarta.persistence.Entity;
@@ -23,26 +22,26 @@ import lombok.Setter;
 @Entity
 @Table(name = "tb_order")
 @NoArgsConstructor
-@Getter
-@Setter
 public class Order implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue
+	@Getter @Setter
 	private UUID id;
 
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
+	@Getter @Setter
 	private Instant moment;
+	
+	private Integer orderStatus;
 
 	@ManyToOne
 	@JoinColumn(name = "client_id")
+	@Getter @Setter
 	private User client;
 
 	@OneToMany(mappedBy = "id.order")
-	private final Set<OrderItem> items = new HashSet<>();
-
-	private Integer orderStatus;
+	private Set<OrderItem> items = new HashSet<>();
 
 	public Order(UUID id, Instant moment, OrderStatus orderStatus, User client) {
 		super();
@@ -61,9 +60,42 @@ public class Order implements Serializable {
 			this.orderStatus = orderStatus.getCode();
 		}
 	}
-
+	
 	public Set<OrderItem> getItems() {
 		return items;
+	}
+	
+	public Double getTotal() {
+		double sum = 0.0;
+		for (OrderItem x : items) {
+			sum += x.getSubTotal();
+		}
+		return sum;
+	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Order other = (Order) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
 	}
 
 }
