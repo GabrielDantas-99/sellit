@@ -1,0 +1,32 @@
+<div class="h-screen grid place-items-center">
+  <div class="shadow-md border border-zinc-100 rounded-lg w-1/2 p-8">
+    <div class="flex items-center text-5xl font-medium justify-center mb-6">
+      <span class="text-orange-400">Sell</span>
+      <span class="text-zinc-600">.it</span>
+    </div>
+    <div class="flex items-center gap-10">
+      <div class="w-1/2 h-full">
+        <h4 class="text-orange-400 text-3xl font-semibold">Login</h4>
+        <p class="text-zinc-500 font-medium">Preencha os campos abaixo para realizar o login.</p>
+        <form action="" class="flex-col flex space-y-3 mt-5">
+          <input class="input" type="text" placeholder="Usuário">
+          <input class="input" type="password" placeholder="Senha">
+          <a 
+            routerLink="/forgot-password" 
+            class="text-xs text-zinc-500 link"
+          >
+            Esqueceu a senha? Clique aqui!
+          </a>
+          <button class="text-white font-medium bg-orange-500 px-5 py-2 rounded-md hover:bg-orange-400 transition">Entrar</button>
+        </form>
+      </div>
+      <div class="w-1/2 h-full">
+        <div class="flex items-center font-medium text-md justify-center mb-6 gap-2">
+          <span class="text-zinc-500">Ainda não tem uma conta?</span>
+          <a routerLink="/register" class="text-orange-500 link">Registre-se</a>
+        </div>
+        <img src="/login_undraw.svg" alt="login-image">
+      </div>
+    </div>
+  </div>
+</div>
