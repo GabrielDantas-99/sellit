@@ -1,0 +1,42 @@
+<app-auth-layout
+  title="Cadastro"
+  subtitle="Preencha os campos abaixo para realizar o cadastro na plataforma."
+  primaryBtnTxt="Cadastrar"
+  secondaryBtnTxt="Entrar"
+  (submit)="submit()"
+  (navigate)="navigate()"
+  [disablePrimaryBtn]="!signupForm.valid"
+>
+  <form [formGroup]="signupForm" class="flex-col flex space-y-3 mt-5">
+    <app-input
+      formControlName="name"
+      inputName="name"
+      type="text"
+      label="Nome"
+      placeholder="John Doe"
+    >
+    </app-input>
+    <app-input
+      formControlName="email"
+      inputName="email"
+      type="email"
+      label="Email"
+      placeholder="johndoe@gmail.com"
+    >
+    </app-input>
+    <app-input
+      formControlName="password"
+      inputName="password"
+      type="password"
+      label="Senha"
+    >
+    </app-input>
+    <app-input
+      formControlName="passwordConfirm"
+      inputName="passwordConfirm"
+      type="password"
+      label="Confirme sua senha"
+    >
+    </app-input>
+  </form>
+</app-auth-layout>

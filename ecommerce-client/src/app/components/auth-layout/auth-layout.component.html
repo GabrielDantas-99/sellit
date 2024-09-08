@@ -1,0 +1,38 @@
+<div class="h-screen grid place-items-center">
+  <div class="shadow-md border border-zinc-100 rounded-lg w-2/3 p-8">
+    <div class="flex items-center text-5xl font-medium justify-center mb-6">
+      <span class="text-orange-400">Sell</span>
+      <span class="text-zinc-600">.it</span>
+    </div>
+    <div class="flex items-center gap-10">
+      <div class="w-1/2 h-full">
+        <h4 class="text-orange-400 text-3xl font-semibold">
+          {{ title }}
+        </h4>
+        <p class="text-zinc-500 font-medium">{{ subtitle }}</p>
+        <ng-content></ng-content>
+        <button
+          (click)="submit()"
+          class="btn-primary mt-6 w-full"
+          [disabled]="disablePrimaryBtn"
+        >
+          {{ primaryBtnTxt }}
+        </button>
+      </div>
+      <div class="w-1/2">
+        <div class="flex my-9 min-w-[285px]  justify-center">
+          <span class="font-medium text-md mr-1 text-zinc-500 flex-nowrap ">
+            {{ secondaryBtnTxt === 'Entrar' ? 'Já possui ' : 'Ainda não tem '}} uma conta?
+          </span>
+          <a
+            (click)="navigate()" 
+            class="text-orange-500 link"
+          >
+            {{ secondaryBtnTxt }}
+          </a>
+        </div>
+        <img src="/login_undraw.svg" alt="login-image">
+      </div>
+    </div>
+  </div>
+</div>

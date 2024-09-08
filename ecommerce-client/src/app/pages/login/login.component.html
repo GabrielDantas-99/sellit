@@ -1,0 +1,28 @@
+<app-auth-layout 
+  title="Login" 
+  subtitle="Preencha os campos abaixo para realizar o login." primaryBtnTxt="Entrar"
+  secondaryBtnTxt="Cadastre-se" 
+  (submit)="submit()" 
+  (navigate)="navigate()" 
+  [disablePrimaryBtn]="!loginForm.valid"
+>
+  <form [formGroup]="loginForm" class="flex-col flex space-y-3 mt-5">
+    <app-input 
+      formControlName="user" 
+      inputName="user" 
+      type="text" 
+      label="Usuário"
+    >
+    </app-input>
+    <app-input 
+      formControlName="password" 
+      inputName="password" 
+      type="password" 
+      label="Senha"
+    >
+    </app-input>
+    <a routerLink="/forgot-password" class="text-xs text-zinc-500 link">
+      Esqueceu a senha? Clique aqui!
+    </a>
+  </form>
+</app-auth-layout>

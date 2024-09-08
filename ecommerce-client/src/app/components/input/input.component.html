@@ -1,0 +1,15 @@
+<div class="input-wrapper">
+  <label class="text-zinc-500 text-sm" [for]="inputName">{{ label }}</label>
+  <div class="input-content">
+    <input
+      class="input"
+      [type]="type"
+      [placeholder]="placeholder"
+      [value]="value"
+      (input)="onInput($event)"
+    />
+    <div class="icon">
+      <ng-content></ng-content>
+    </div>
+  </div>
+</div>
