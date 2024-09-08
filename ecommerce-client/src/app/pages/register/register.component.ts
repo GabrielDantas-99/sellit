@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
-import { AuthLayoutComponent } from '../../components/auth-layout/auth-layout.component';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthLayoutComponent } from '../../components/auth-layout/auth-layout.component';
 import { InputComponent } from '../../components/input/input.component';
+import { AuthService } from '../../services/auth.service';
+import { ToastrService } from 'ngx-toastr';
+import { RegisterRequestDTO } from '../../types/register-request.dto';
 
 interface SignupForm {
   name: FormControl,
@@ -21,7 +24,11 @@ interface SignupForm {
 export class RegisterComponent {
   signupForm!: FormGroup<SignupForm>;
 
-  constructor(private router: Router) {
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private toastr: ToastrService
+  ) {
     this.signupForm = new FormGroup({
       name: new FormControl('', [Validators.required, Validators.minLength(3)]),
       email: new FormControl('', [Validators.required, Validators.email]),
@@ -31,7 +38,19 @@ export class RegisterComponent {
   }
 
   submit(){
-    console.log(this.signupForm.value)
+    this.authService.register(this.createRegisterRequestDTO()).subscribe({
+      next: () => this.toastr.success("Cadastro feito com sucesso!"),
+      error: () => this.toastr.error("Erro inesperado! Tente novamente mais tarde")
+    })
+  }
+
+  createRegisterRequestDTO(): RegisterRequestDTO {
+    const request: RegisterRequestDTO = {
+      email: this.signupForm.value.email,
+      name: this.signupForm.value.name,
+      password: this.signupForm.value.password,
+    }
+    return request;
   }
 
   navigate(){

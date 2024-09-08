@@ -1,3 +1,3 @@
 package com.gabriel.ecommerce_api.entities.dto;
 
-public record LoginRequestDTO(String email, String password) { }
+public record LoginRequestDTO(String user, String password) { }

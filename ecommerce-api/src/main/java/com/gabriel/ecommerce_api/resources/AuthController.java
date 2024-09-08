@@ -27,7 +27,7 @@ public class AuthController {
 
   @PostMapping("/login")
   public ResponseEntity login(@RequestBody LoginRequestDTO body) {
-    User user = this.repository.findByEmail(body.email()).orElseThrow(() -> new RuntimeException("User not found"));
+    User user = this.repository.findByEmail(body.user()).orElseThrow(() -> new RuntimeException("User not found"));
     if (passwordEncoder.matches(body.password(), user.getPassword())) {
       String token = this.tokenService.generateToken(user);
       return ResponseEntity.ok(new ResponseDTO(user.getName(), token));
@@ -48,7 +48,8 @@ public class AuthController {
 
       String token = this.tokenService.generateToken(newUser);
       return ResponseEntity.ok(new ResponseDTO(newUser.getName(), token));
+    } else {
+      throw new RuntimeException("Email already exists");
     }
-    return ResponseEntity.badRequest().build();
   }
 }
